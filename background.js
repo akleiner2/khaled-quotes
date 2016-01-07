@@ -11,15 +11,13 @@ var quotes = [
   "egg whites, turkey sausage, water. they dont want u to eat",
   "When you win big, you win more - they gonna sue you. Just counter sue 'em tho. Don't back down.",
   "Rain will come, rain will go. When you a winner - rain on 'em forever.",
-  "Some people can't handle success. I can."
+  "Some people can't handle success. I can.",
+  "Ben, how's business? BOOMIN'."
 ];
 
-var handler = function(event) {
-  // CTRL + Shift + Y
-  if (event.ctrlKey && event.shiftKey && event.keyCode === 25) {
-    var quote = getSuccess();
-    copyQuoteToClipboard(quote);
-  }
+var handler = function() {
+  var quote = getSuccess();
+  copyQuoteToClipboard(quote);
 }
 
 var copyQuoteToClipboard = function(quote) { 
@@ -44,4 +42,8 @@ var getSuccess = function() {
   return quotes[Math.floor(Math.random() * quotes.length)];
 }
 
-document.addEventListener("keypress", handler, true);
+chrome.commands.onCommand.addListener(function(command) {
+  if (command === "copy-quote") {
+    handler();
+  }
+});

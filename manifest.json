@@ -4,8 +4,17 @@
   "name": "Khaled Quotes",
   "description": "Get the keys to success right in your browser",
   "version": "1.0",
-  "content_scripts":[{
-    "matches": ["*://*/*"], 
-    "js": ["script.js"]
-  }]
+  "commands": {
+    "copy-quote": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Copies random quote to clipboard"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  }
 }
