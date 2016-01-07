@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+
+  "name": "Khaled Quotes",
+  "description": "Get the keys to success right in your browser",
+  "version": "1.0",
+  "content_scripts":[{
+    "matches": ["*://*/*"], 
+    "js": ["script.js"]
+  }]
+}
