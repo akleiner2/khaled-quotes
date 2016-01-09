@@ -24,14 +24,23 @@ get '/protected' do
     erb :admin
 end
 
+# Returns a random quote from the DB.
 get '/quote' do
-    "Random quote test"
+    content_type :json
+    {:quote => KhaledQuote.order("RANDOM()").first.quote}.to_json
 end 
 
+# Adds a quote to the DB.
 post '/quote' do 
-    params[:quote]
+    @quote = KhaledQuote.new(params[:model])
+    if @quote.save
+        redirect '/protected'
+    else 
+        "There was an error."
+    end
 end
 
+# TODO: Searches for a random quote containing the word in the endpoint. Returns "Business is not booming." otherwise.
 get '/:quote' do 
     params[:quote]
 end
