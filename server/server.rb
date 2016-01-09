@@ -13,7 +13,7 @@ helpers do
   end
 
   def authorized?
-    @config = YAML.load_file("config.yaml")
+    @config = YAML.load_file("./config/protected.yaml")
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == [@config["username"], @config["password"]]
   end
