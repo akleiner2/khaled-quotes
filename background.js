@@ -1,23 +1,5 @@
-var quotes = [
-  "they dont want u to eat !! i promise u !",
-  "bless up 🙏",
-  "lets see 👀",
-  "cloth talk comin soon",
-  "ride wit me on the pathway to more success",
-  "LIOOOONNNNNN",
-  "Another one. Another one. Another one. Another one.",
-  "i told my security its fan luv its all good",
-  "cocoa butter is the 🔑",
-  "egg whites, turkey sausage, water. they dont want u to eat",
-  "When you win big, you win more - they gonna sue you. Just counter sue 'em tho. Don't back down.",
-  "Rain will come, rain will go. When you a winner - rain on 'em forever.",
-  "Some people can't handle success. I can.",
-  "Ben, how's business? BOOMIN'."
-];
-
 var handler = function() {
-  var quote = getSuccess();
-  copyQuoteToClipboard(quote);
+  getQuoteAndCopy(copyQuoteToClipboard);
 }
 
 var copyQuoteToClipboard = function(quote) { 
@@ -38,8 +20,18 @@ var createTextArea = function(id) {
   return element;
 }
 
-var getSuccess = function() { 
-  return quotes[Math.floor(Math.random() * quotes.length)];
+var getQuoteAndCopy = function(callback) {
+  var url = "http://khaledquotes.herokuapp.com/quote";
+  var xhr = new XMLHttpRequest();
+  
+  xhr.onreadystatechange = function() { 
+    if xhr.readyState == 4 && xhr.status == 200) { 
+      copyQuoteToClipboard(xhr.responseText)
+    }
+  }
+
+  xhr.open("GET", url, true);
+  xhr.send();
 }
 
 chrome.commands.onCommand.addListener(function(command) {
